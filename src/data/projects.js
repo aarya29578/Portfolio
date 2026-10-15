@@ -1,7 +1,23 @@
 /**
- * Projects Aggregator
- * Independent and client project data are managed in their respective files.
+ * Projects Data
+ *
+ * Store real web applications, mobile experiences,
+ * and digital solutions to showcase on the dedicated Projects page.
  */
 
-export { personalProjects } from './personalProjects';
-export { freelanceProjects } from './freelanceProjects';
+export const projects = [
+  /*
+  Example project structure for when real projects are added:
+  {
+    id: "project-slug",
+    title: "Project Name",
+    subtitle: "Brief one-line summary",
+    description: "Detailed description of the application...",
+    technologies: ["React", "Flutter", "Node.js"],
+    links: {
+      github: "https://github.com/...",
+      live: "https://...",
+    },
+  },
+  */
+];

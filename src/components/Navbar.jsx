@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ currentPath = '/', onNavigate }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
@@ -51,6 +51,20 @@ export default function Navbar() {
   const handleNavClick = (e, href) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+
+    if (currentPath !== '/') {
+      if (onNavigate) {
+        onNavigate('/');
+        setTimeout(() => {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 120);
+      }
+      return;
+    }
+
     const target = document.querySelector(href);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -85,10 +99,14 @@ export default function Navbar() {
         >
           {/* Wordmark */}
           <a
-            href="#"
+            href="/"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (currentPath !== '/' && onNavigate) {
+                onNavigate('/');
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
             }}
             className="wordmark"
             aria-label="Aarya Parulekar Portfolio Home"
@@ -126,7 +144,10 @@ export default function Navbar() {
               }}
             >
               {NAV_LINKS.map((link) => {
-                const isActive = activeSection === link.href.replace('#', '');
+                const isActive =
+                  currentPath === '/projects'
+                    ? link.href === '#work'
+                    : activeSection === link.href.replace('#', '');
                 return (
                   <li key={link.href}>
                     <a

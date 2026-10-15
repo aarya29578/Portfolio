@@ -1,10 +1,34 @@
 import { ArrowUp } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ currentPath = '/', onNavigate }) {
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (currentPath !== '/' && onNavigate) {
+      onNavigate('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleFooterNav = (e, href) => {
+    e.preventDefault();
+    if (currentPath !== '/') {
+      if (onNavigate) {
+        onNavigate('/');
+        setTimeout(() => {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 120);
+      }
+      return;
+    }
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -27,17 +51,23 @@ export default function Footer() {
       >
         {/* Wordmark & Minimal Note */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-          <div
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToTop();
+            }}
             style={{
               fontFamily: 'var(--font-serif)',
               fontSize: '1.25rem',
               fontWeight: 700,
               color: 'var(--text-ink)',
               letterSpacing: '-0.02em',
+              display: 'inline-block',
             }}
           >
             aarya<span style={{ color: 'var(--accent-terracotta)' }}>.</span>
-          </div>
+          </a>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-subtle)', margin: 0 }}>
             © {currentYear} Aarya Parulekar. Full Stack & Flutter Developer.
           </p>
@@ -57,6 +87,7 @@ export default function Footer() {
         >
           <a
             href="#work"
+            onClick={(e) => handleFooterNav(e, '#work')}
             style={{ transition: 'color var(--transition-fast)' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-ink)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
@@ -65,6 +96,7 @@ export default function Footer() {
           </a>
           <a
             href="#about"
+            onClick={(e) => handleFooterNav(e, '#about')}
             style={{ transition: 'color var(--transition-fast)' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-ink)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
@@ -73,6 +105,7 @@ export default function Footer() {
           </a>
           <a
             href="#tech-stack"
+            onClick={(e) => handleFooterNav(e, '#tech-stack')}
             style={{ transition: 'color var(--transition-fast)' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-ink)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
@@ -81,6 +114,7 @@ export default function Footer() {
           </a>
           <a
             href="#contact"
+            onClick={(e) => handleFooterNav(e, '#contact')}
             style={{ transition: 'color var(--transition-fast)' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-ink)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
