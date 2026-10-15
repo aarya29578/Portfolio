@@ -1,221 +1,199 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import SectionHeader from '../components/SectionHeader';
-import { Layout, Smartphone, Server, Sparkles, CheckCircle2 } from 'lucide-react';
+
+const CORE_TECHNOLOGIES = [
+  'React',
+  'JavaScript',
+  'Node.js',
+  'Flutter',
+  'Dart',
+  'Firebase',
+  'MongoDB',
+  'SQL',
+];
 
 export default function AboutSection() {
   const shouldReduceMotion = useReducedMotion();
 
-  const principles = [
-    {
-      icon: Layout,
-      title: "Web Applications",
-      description:
-        "Building responsive, high-performance web interfaces with React and Tailwind CSS that feel natural across every screen.",
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.12,
+        delayChildren: 0.1,
+      },
     },
-    {
-      icon: Smartphone,
-      title: "Mobile Experiences",
-      description:
-        "Developing cross-platform applications with Flutter and Dart, combining fluid touch interactions with dependable state management.",
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 18 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+      },
     },
-    {
-      icon: Server,
-      title: "Backend Integrations",
-      description:
-        "Connecting frontend interfaces to robust Node.js and Express REST services, real-time Firebase databases, and structured SQL data models.",
-    },
-  ];
+  };
 
   return (
-    <section id="about" className="editorial-section" style={{ backgroundColor: 'var(--bg-stone-subtle)' }}>
+    <section
+      id="about"
+      className="editorial-section"
+      style={{
+        backgroundColor: 'var(--bg-stone-subtle)',
+        paddingTop: 'clamp(7rem, 12vw, 10.5rem)',
+        paddingBottom: 'clamp(4.5rem, 8vw, 7.5rem)',
+        position: 'relative',
+      }}
+    >
       <div className="editorial-container">
-        {/* Section Header */}
-        <SectionHeader
-          eyebrow="Personal Background & Philosophy"
-          title="Turning ideas into"
-          italicWord="working products"
-          titleEnd="with pragmatic engineering"
-          description="A short reflection on how I approach problem solving, cross-platform architecture, and turning concepts into real-world applications."
-          split={true}
-        />
-
-        {/* Editorial Split Grid */}
-        <div
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: 'clamp(2.5rem, 5vw, 4rem)',
-            alignItems: 'start',
+            maxWidth: '860px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(1.75rem, 3.5vw, 2.5rem)',
           }}
-          className="about-grid-inner"
         >
-          {/* Left Column: Short, Personal Narrative */}
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+          {/* Small Label */}
+          <motion.div variants={itemVariants}>
+            <span className="eyebrow">About Me</span>
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h2
+            variants={itemVariants}
+            className="headline-section"
+            style={{
+              fontSize: 'clamp(2.1rem, 4.2vw, 3.35rem)',
+              lineHeight: 1.15,
+              margin: 0,
+            }}
           >
-            {/* Editorial Lead Callout */}
-            <div
+            Building digital experiences, from{' '}
+            <span className="font-italic-serif text-terracotta">interface</span>{' '}
+            to{' '}
+            <span className="font-italic-serif text-terracotta">backend</span>.
+          </motion.h2>
+
+          {/* Description */}
+          <motion.p
+            variants={itemVariants}
+            className="editorial-lead"
+            style={{
+              fontSize: 'clamp(1.05rem, 1.35vw, 1.22rem)',
+              lineHeight: 1.75,
+              color: 'var(--text-ink)',
+              margin: 0,
+            }}
+          >
+            I'm Aarya Parulekar, a Full Stack Developer working across web applications and mobile experiences. I build responsive React interfaces, develop Flutter applications, and connect them to backend services, REST APIs, and databases.
+          </motion.p>
+
+          {/* Core Technologies */}
+          <motion.div
+            variants={itemVariants}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem',
+              paddingTop: '0.25rem',
+            }}
+          >
+            <span
               style={{
-                backgroundColor: 'var(--bg-card)',
-                border: '1px solid var(--border-light)',
-                borderLeft: '4px solid var(--accent-terracotta)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'clamp(1.25rem, 3vw, 2rem)',
-                boxShadow: 'var(--shadow-subtle)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.72rem',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--text-subtle)',
+                fontWeight: 600,
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.65rem' }}>
-                <Sparkles size={16} color="var(--accent-terracotta)" />
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.74rem',
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    color: 'var(--accent-terracotta)',
-                    fontWeight: 600,
-                  }}
-                >
-                  Core Mission
-                </span>
-              </div>
-              <p
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)',
-                  lineHeight: 1.45,
-                  color: 'var(--text-ink)',
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
-                "I build web applications, mobile experiences and backend integrations that connect thoughtful interfaces with reliable functionality."
-              </p>
-            </div>
+              Core Technologies
+            </span>
 
-            {/* Problem Solving Approach */}
-            <p className="text-editorial-body" style={{ fontSize: '1.025rem', lineHeight: 1.75 }}>
-              My approach to software is simple: understand the core problem first, then build clean, reliable solutions that turn ideas into working products. I don't treat the web, mobile, and backend as isolated disciplines—I enjoy seeing how every layer works together to deliver a coherent experience.
-            </p>
-
-            <p className="text-editorial-body" style={{ fontSize: '1.025rem', lineHeight: 1.75 }}>
-              Whether creating a citizen document verification portal, crafting an artisanal e-commerce storefront, or architecting a Flutter mobile app, I focus on readable code, reusable components, and dependable data flows.
-            </p>
-
-            {/* Focus checklist */}
             <div
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '0.75rem',
-                paddingTop: '0.5rem',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.55rem',
+                alignItems: 'center',
               }}
             >
-              {[
-                "Pragmatic problem solving",
-                "Clean code & modular structure",
-                "Responsive across all viewports",
-                "Reliable backend data flows",
-              ].map((item) => (
+              {CORE_TECHNOLOGIES.map((tech) => (
                 <div
-                  key={item}
+                  key={tech}
                   style={{
-                    display: 'flex',
+                    display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.5rem',
-                    fontSize: '0.88rem',
-                    color: 'var(--text-ink)',
+                    gap: '0.45rem',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.84rem',
                     fontWeight: 500,
+                    color: 'var(--text-ink)',
+                    backgroundColor: '#FFFFFF',
+                    padding: '0.4rem 0.85rem',
+                    borderRadius: 'var(--radius-pill)',
+                    border: '1px solid var(--border-hairline)',
+                    boxShadow: 'var(--shadow-subtle)',
+                    transition: 'border-color var(--transition-fast), transform var(--transition-fast)',
                   }}
+                  className="about-tech-tag"
                 >
-                  <CheckCircle2 size={16} color="var(--accent-terracotta)" />
-                  <span>{item}</span>
+                  <span
+                    style={{
+                      width: '5px',
+                      height: '5px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--accent-terracotta)',
+                    }}
+                  />
+                  <span>{tech}</span>
                 </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Right Column: Three Focus Areas */}
+          {/* Small Closing Line */}
           <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.15, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+            variants={itemVariants}
+            style={{
+              paddingTop: '0.5rem',
+            }}
           >
             <div
               style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'var(--text-subtle)',
-                fontWeight: 600,
-                marginBottom: '0.25rem',
+                paddingLeft: '1.25rem',
+                borderLeft: '2px solid var(--accent-terracotta)',
               }}
             >
-              What I Build
+              <p
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontStyle: 'italic',
+                  fontSize: 'clamp(1.025rem, 1.3vw, 1.2rem)',
+                  color: 'var(--text-muted)',
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                "From thoughtful interfaces to functional applications, I enjoy turning ideas into working products."
+              </p>
             </div>
-
-            {principles.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    backgroundColor: 'var(--bg-card)',
-                    border: '1px solid var(--border-light)',
-                    borderRadius: 'var(--radius-md)',
-                    padding: '1.35rem 1.5rem',
-                    transition: 'all var(--transition-fast)',
-                    boxShadow: 'var(--shadow-subtle)',
-                  }}
-                  className="about-principle-card"
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.45rem' }}>
-                    <div
-                      style={{
-                        width: '34px',
-                        height: '34px',
-                        borderRadius: '6px',
-                        backgroundColor: 'var(--accent-terracotta-subtle)',
-                        color: 'var(--accent-terracotta)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Icon size={18} />
-                    </div>
-                    <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-ink)', margin: 0 }}>
-                      {item.title}
-                    </h3>
-                  </div>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.55, margin: 0, paddingLeft: '2.85rem' }}>
-                    {item.description}
-                  </p>
-                </div>
-              );
-            })}
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       <style>{`
-        @media (min-width: 960px) {
-          .about-grid-inner {
-            grid-template-columns: 1.2fr 1fr;
-          }
-        }
-        .about-principle-card:hover {
+        .about-tech-tag:hover {
           border-color: var(--border-medium);
-          box-shadow: var(--shadow-editorial);
-          transform: translateY(-2px);
+          transform: translateY(-1px);
         }
       `}</style>
     </section>

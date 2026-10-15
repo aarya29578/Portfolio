@@ -3,8 +3,8 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_LINKS = [
-  { label: 'Work', href: '#work' },
   { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#work' },
   { label: 'Tech Stack', href: '#tech-stack' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -12,14 +12,14 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('work');
+  const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
       // Active section detection
-      const sections = ['work', 'about', 'tech-stack', 'contact'];
+      const sections = ['about', 'work', 'tech-stack', 'contact'];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
