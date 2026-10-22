@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowLeft, Sparkles, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Sparkles, Smartphone } from 'lucide-react';
 import { projects } from '../data/projects';
-import { GithubIcon } from '../components/Icons';
+import MobileProjectCard from '../components/MobileProjectCard';
 
 export default function ProjectsPage({ onBackHome }) {
   const shouldReduceMotion = useReducedMotion();
@@ -11,7 +11,7 @@ export default function ProjectsPage({ onBackHome }) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.1,
+        staggerChildren: shouldReduceMotion ? 0 : 0.12,
         delayChildren: 0.1,
       },
     },
@@ -35,7 +35,7 @@ export default function ProjectsPage({ onBackHome }) {
       style={{
         paddingTop: 'clamp(7rem, 12vw, 10.5rem)',
         paddingBottom: 'clamp(5rem, 9vw, 8rem)',
-        minHeight: '75vh',
+        minHeight: '85vh',
       }}
     >
       <div className="editorial-container">
@@ -44,7 +44,7 @@ export default function ProjectsPage({ onBackHome }) {
           initial="hidden"
           animate="visible"
         >
-          {/* Back to Home Action */}
+          {/* Back to Home Action Button */}
           <motion.div variants={itemVariants} style={{ marginBottom: '2.25rem' }}>
             <button
               type="button"
@@ -70,11 +70,35 @@ export default function ProjectsPage({ onBackHome }) {
             </button>
           </motion.div>
 
-          {/* Header Block */}
-          <div style={{ maxWidth: '820px', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
-            <motion.div variants={itemVariants}>
-              <span className="eyebrow" style={{ marginBottom: '0.85rem' }}>
-                PORTFOLIO / SELECTED WORK
+          {/* Editorial Header Block */}
+          <div style={{ maxWidth: '840px', marginBottom: 'clamp(3rem, 6vw, 4.75rem)' }}>
+            <motion.div
+              variants={itemVariants}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                flexWrap: 'wrap',
+                marginBottom: '0.85rem',
+              }}
+            >
+              <span className="eyebrow">PORTFOLIO / SELECTED WORK</span>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  color: 'var(--text-subtle)',
+                  backgroundColor: 'var(--bg-stone-subtle)',
+                  padding: '0.2rem 0.6rem',
+                  borderRadius: 'var(--radius-pill)',
+                  border: '1px solid var(--border-hairline)',
+                }}
+              >
+                <Smartphone size={11} color="var(--accent-terracotta)" />
+                <span>Production Mobile Applications</span>
               </span>
             </motion.div>
 
@@ -82,151 +106,43 @@ export default function ProjectsPage({ onBackHome }) {
               variants={itemVariants}
               className="headline-hero"
               style={{
-                fontSize: 'clamp(2.4rem, 5vw, 4.2rem)',
+                fontSize: 'clamp(2.4rem, 5.2vw, 4.4rem)',
                 lineHeight: 1.1,
-                marginTop: '0.65rem',
+                marginTop: '0.5rem',
                 marginBottom: '1.25rem',
                 color: 'var(--text-ink)',
               }}
             >
-              Things I've built.
+              Featured Mobile Applications.
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
               className="editorial-lead"
               style={{
-                fontSize: 'clamp(1.1rem, 1.5vw, 1.3rem)',
-                lineHeight: 1.65,
+                fontSize: 'clamp(1.05rem, 1.4vw, 1.25rem)',
+                lineHeight: 1.68,
                 color: 'var(--text-muted)',
                 margin: 0,
+                maxWidth: '720px',
               }}
             >
-              Web applications, mobile experiences, and digital solutions — all in one place.
+              Production mobile products engineered with Flutter, Dart, and cloud architectures — 
+              built for real citizen services and cultural contemplation, available on the Google Play Store.
             </motion.p>
           </div>
 
-          {/* Projects Content: Grid if populated, else clean Empty State */}
+          {/* Projects Showcases Section */}
           {projects.length > 0 ? (
-            <motion.div
-              variants={itemVariants}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '2rem',
-              }}
-            >
-              {projects.map((project) => (
-                <div
+            <div className="projects-showcase-list">
+              {projects.map((project, index) => (
+                <MobileProjectCard
                   key={project.id}
-                  style={{
-                    backgroundColor: 'var(--bg-card)',
-                    border: '1px solid var(--border-light)',
-                    borderRadius: 'var(--radius-md)',
-                    padding: '1.75rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: 'var(--shadow-subtle)',
-                    gap: '1.25rem',
-                  }}
-                >
-                  <div>
-                    <h3
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: '1.35rem',
-                        fontWeight: 600,
-                        color: 'var(--text-ink)',
-                        marginBottom: '0.35rem',
-                      }}
-                    >
-                      {project.title}
-                    </h3>
-                    {project.subtitle && (
-                      <div
-                        style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '0.78rem',
-                          color: 'var(--accent-terracotta)',
-                          marginBottom: '0.85rem',
-                        }}
-                      >
-                        {project.subtitle}
-                      </div>
-                    )}
-                    <p
-                      style={{
-                        fontSize: '0.92rem',
-                        color: 'var(--text-muted)',
-                        lineHeight: 1.6,
-                        margin: 0,
-                      }}
-                    >
-                      {project.description}
-                    </p>
-                  </div>
-
-                  {project.technologies && project.technologies.length > 0 && (
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '0.4rem',
-                      }}
-                    >
-                      {project.technologies.map((tech) => (
-                        <span key={tech} className="editorial-tag">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {project.links && (
-                    <div
-                      style={{
-                        display: 'flex',
-                        gap: '0.75rem',
-                        paddingTop: '0.75rem',
-                        borderTop: '1px solid var(--border-hairline)',
-                      }}
-                    >
-                      {project.links.github && (
-                        <a
-                          href={project.links.github}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          className="btn btn-secondary"
-                          style={{
-                            fontSize: '0.82rem',
-                            padding: '0.45rem 1rem',
-                          }}
-                        >
-                          <GithubIcon size={14} />
-                          <span>Code</span>
-                        </a>
-                      )}
-                      {project.links.live && (
-                        <a
-                          href={project.links.live}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          className="btn btn-primary"
-                          style={{
-                            fontSize: '0.82rem',
-                            padding: '0.45rem 1rem',
-                          }}
-                        >
-                          <ExternalLink size={14} />
-                          <span>Live Preview</span>
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
+                  project={project}
+                  index={index}
+                />
               ))}
-            </motion.div>
+            </div>
           ) : (
             <motion.div
               variants={itemVariants}
@@ -281,7 +197,7 @@ export default function ProjectsPage({ onBackHome }) {
                   margin: '0 0 0.5rem 0',
                 }}
               >
-                Selected production web applications, cross-platform mobile apps, and technical case studies are currently being curated for display.
+                Selected production web applications and cross-platform mobile apps are currently being curated for display.
               </p>
 
               <button
@@ -295,6 +211,59 @@ export default function ProjectsPage({ onBackHome }) {
               </button>
             </motion.div>
           )}
+
+          {/* Bottom Return to Home Navigation Bar */}
+          <motion.div
+            variants={itemVariants}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingTop: '2.5rem',
+              borderTop: '1px solid var(--border-light)',
+              flexWrap: 'wrap',
+              gap: '1.25rem',
+            }}
+          >
+            <div>
+              <p
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: '1.2rem',
+                  color: 'var(--text-ink)',
+                  margin: '0 0 0.25rem 0',
+                }}
+              >
+                Interested in working together?
+              </p>
+              <p
+                style={{
+                  fontSize: '0.88rem',
+                  color: 'var(--text-muted)',
+                  margin: 0,
+                }}
+              >
+                Explore skills, background, or get in touch on the homepage.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={onBackHome}
+              className="btn btn-secondary"
+              style={{
+                fontSize: '0.88rem',
+                padding: '0.65rem 1.45rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+              }}
+              aria-label="Return to portfolio home page"
+            >
+              <ArrowLeft size={16} />
+              <span>Back to Home</span>
+            </button>
+          </motion.div>
         </motion.div>
       </div>
     </div>

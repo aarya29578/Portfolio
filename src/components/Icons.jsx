@@ -38,3 +38,33 @@ export function LinkedinIcon({ size = 18, color = 'currentColor', className = ''
     </svg>
   );
 }
+
+export function GooglePlayIcon({ size = 18, className = '' }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M3.609 1.814A2.083 2.083 0 0 0 3 3.328v17.344c0 .59.22 1.144.609 1.514l9.539-9.589L3.609 1.814z"
+        fill="#00D27B"
+      />
+      <path
+        d="M16.89 9.34l-3.742 3.257 3.742 3.257 4.237-2.42c.877-.502.877-1.324 0-1.826l-4.237-2.268z"
+        fill="#FFBA00"
+      />
+      <path
+        d="M3.609 1.814L13.148 12.6l3.742-3.257L5.753 1.258c-.628-.359-1.428-.153-2.144.556z"
+        fill="#00B0FF"
+      />
+      <path
+        d="M13.148 12.6l-9.539 10.786c.716.709 1.516.915 2.144.556l11.137-6.085-3.742-3.257z"
+        fill="#FF334B"
+      />
+    </svg>
+  );
+}

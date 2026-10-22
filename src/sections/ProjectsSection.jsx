@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Smartphone, Laptop, Sparkles, Layers } from 'lucide-react';
+import { ArrowRight, Smartphone, Laptop } from 'lucide-react';
 import SectionHeader from '../components/SectionHeader';
 
 export default function ProjectsSection({ onExploreProjects }) {
